@@ -1,6 +1,6 @@
 // Copyright (c) 2017 Franka Emika GmbH
 // Use of this source code is governed by the Apache-2.0 license, see LICENSE
-#include <panda_controllers/cartesian_impedance_controller_softbots.h>
+#include <dual_franka_controllers/cartesian_impedance_controller_softbots.h>
 
 #include <cmath>
 
@@ -11,7 +11,7 @@
 
 #include "utils/pseudo_inversion.h"
 
-namespace panda_controllers {
+namespace dual_franka_controllers {
 
 bool CartesianImpedanceControllerSoftbots::init(hardware_interface::RobotHW* robot_hw,
                                                ros::NodeHandle& node_handle) {
@@ -290,7 +290,7 @@ void CartesianImpedanceControllerSoftbots::equilibriumPoseCallback(
 
 }
 
-}  // namespace panda_controllers
+}  // namespace dual_franka_controllers
 
-PLUGINLIB_EXPORT_CLASS(panda_controllers::CartesianImpedanceControllerSoftbots,
+PLUGINLIB_EXPORT_CLASS(dual_franka_controllers::CartesianImpedanceControllerSoftbots,
                        controller_interface::ControllerBase)

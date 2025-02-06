@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(panda_controllers)
+project(dual_franka_controllers)
 
 set(CMAKE_BUILD_TYPE Release)
 
@@ -58,7 +58,7 @@ add_library(${PROJECT_NAME}
 
 # add_dependencies(${PROJECT_NAME}
 #   ${${PROJECT_NAME}_EXPORTED_TARGETS}
-#   panda_controllers ${catkin_EXPORTED_TARGETS}
+#   dual_franka_controllers ${catkin_EXPORTED_TARGETS}
 #   ${catkin_EXPORTED_TARGETS}
 #   ${PROJECT_NAME}_generate_messages_cpp
 #   ${PROJECT_NAME}_gencpp
@@ -67,7 +67,7 @@ add_library(${PROJECT_NAME}
 
 add_dependencies(${PROJECT_NAME}
 	${${PROJECT_NAME}_EXPORTED_TARGETS}
-	panda_controllers ${catkin_EXPORTED_TARGETS}
+	dual_franka_controllers ${catkin_EXPORTED_TARGETS}
 )
 
 add_executable(menu src/menu.cpp)

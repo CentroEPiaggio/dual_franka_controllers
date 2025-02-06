@@ -6,7 +6,7 @@
   <arg name="arm_id_right" default="fr3_right" doc="Name of the second franka robot to spawn" />
   <!-- <arg name="prefix" default="/robot/arm" doc="prefix for arm" /> -->
   <!-- <arg name="load_gripper" value="false" /> -->
-  <rosparam command="load" file="$(find panda_controllers)/config/panda_controllers_default.yaml" />
+  <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
 
   <!-- Define parameters -->
   <xacro:property name="base_height" value="0.5" /> <!-- Height of the base -->

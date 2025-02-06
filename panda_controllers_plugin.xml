@@ -1,12 +1,12 @@
-<library path="lib/libpanda_controllers">
+<library path="lib/libdual_franka_controllers">
   
-  <class name="panda_controllers/ComputedTorque" type="panda_controllers::ComputedTorque" base_class_type="controller_interface::ControllerBase">
+  <class name="dual_franka_controllers/ComputedTorque" type="dual_franka_controllers::ComputedTorque" base_class_type="controller_interface::ControllerBase">
    <description>
       Computed Torque controller.
    </description>
   </class>
   
-   <class name="panda_controllers/CartesianImpedanceControllerSoftbots" type="panda_controllers::CartesianImpedanceControllerSoftbots" base_class_type="controller_interface::ControllerBase">
+   <class name="dual_franka_controllers/CartesianImpedanceControllerSoftbots" type="dual_franka_controllers::CartesianImpedanceControllerSoftbots" base_class_type="controller_interface::ControllerBase">
    <description>
       Variable impedance controller.
    </description>

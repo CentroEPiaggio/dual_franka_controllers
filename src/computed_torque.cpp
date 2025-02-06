@@ -1,8 +1,8 @@
 //various library on which we work on
 #include <pluginlib/class_list_macros.h>
-#include <panda_controllers/computed_torque.h> //library of the computed torque 
+#include <dual_franka_controllers/computed_torque.h> //library of the computed torque 
 
-namespace panda_controllers{
+namespace dual_franka_controllers{
 
 bool ComputedTorque::init(hardware_interface::RobotHW* robot_hw, ros::NodeHandle& node_handle)
 { 
@@ -229,4 +229,4 @@ void ComputedTorque::setCommandCB(const sensor_msgs::JointStateConstPtr& msg)
 
 }
 
-PLUGINLIB_EXPORT_CLASS(panda_controllers::ComputedTorque, controller_interface::ControllerBase);
+PLUGINLIB_EXPORT_CLASS(dual_franka_controllers::ComputedTorque, controller_interface::ControllerBase);

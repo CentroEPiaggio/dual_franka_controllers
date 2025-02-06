@@ -1,5 +1,5 @@
 computed_torque_controller:
-    type: panda_controllers/ComputedTorque
+    type: dual_franka_controllers/ComputedTorque
     arm_id: fr3
     joint_names:
          - fr3_joint1
@@ -19,7 +19,7 @@ computed_torque_controller:
     dt: 5
 
 cartesian_impedance_controller_softbots:
-    type: panda_controllers/CartesianImpedanceControllerSoftbots
+    type: dual_franka_controllers/CartesianImpedanceControllerSoftbots
     arm_id: fr3
     joint_names:
         - fr3_joint1

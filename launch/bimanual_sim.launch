@@ -6,7 +6,7 @@
   <arg name="arm_id_right" default="fr3_right" doc="Name of the second franka robot to spawn" />
   <!-- <arg name="prefix" default="/robot/arm" doc="prefix for arm" /> -->
   <arg name="load_gripper" value="false" />
-  <rosparam command="load" file="$(find panda_controllers)/config/panda_controllers_default.yaml" />
+  <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
 
   <!-- Set parameters for the manipulator -->
   <param name="base_height" default="0.2" />
@@ -14,7 +14,7 @@
   <param name="base_roll" default="0.75" />
 
   <!-- Load the robot description URDF/XACRO -->
-  <!-- <param name="robot_description" command="xacro $(find panda_controllers)/urdf/bimanual_manipulator.xacro" /> -->
+  <!-- <param name="robot_description" command="xacro $(find dual_franka_controllers)/urdf/bimanual_manipulator.xacro" /> -->
 
   <!-- Launch the Gazebo simulation -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">

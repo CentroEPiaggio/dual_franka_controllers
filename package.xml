@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package format="2">
-	<name>panda_controllers</name>
+	<name>dual_franka_controllers</name>
 	<version>1.0.0</version>
-	<description>panda_controllers provides some ROS controllers for using Franka Emika Panda robots with ros_control</description>
-	<maintainer email="georgejose.pollayil@phd.unipi.it">George Jose Pollayil</maintainer>
+	<description>dual_franka_controllers provides some ROS controllers for using Franka Emika Panda robots with ros_control</description>
+	<maintainer email="giorgio.simonini@phd.unipi.it">Giorgio Simonini</maintainer>
 	<license>Apache 2.0</license>
 
-	<url type="repository">https://github.com/CentroEPiaggio/panda_controllers</url>
-	<url type="bugtracker">https://github.com/CentroEPiaggio/panda_controllers/issues</url>
-	<author>George Jose Pollayil</author>
+	<url type="repository">https://github.com/CentroEPiaggio/dual_franka_controllers</url>
+	<url type="bugtracker">https://github.com/CentroEPiaggio/dual_franka_controllers/issues</url>
+	<author>Giorgio Simonini</author>
 
 	<buildtool_depend>catkin</buildtool_depend>
 
@@ -36,6 +36,6 @@
 	<exec_depend>rospy</exec_depend>
 
 	<export>
-		<controller_interface plugin="${prefix}/panda_controllers_plugin.xml"/>
+		<controller_interface plugin="${prefix}/dual_franka_controllers_plugin.xml"/>
 	</export>
 </package>

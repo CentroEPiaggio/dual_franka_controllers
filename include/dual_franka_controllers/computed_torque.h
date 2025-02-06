@@ -25,7 +25,7 @@
 
 #define     DEBUG   0      
 
-namespace panda_controllers
+namespace dual_franka_controllers
 {
 
 class ComputedTorque : public controller_interface::MultiInterfaceController<franka_hw::FrankaModelInterface,

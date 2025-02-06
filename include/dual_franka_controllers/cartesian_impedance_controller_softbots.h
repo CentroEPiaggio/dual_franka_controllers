@@ -20,7 +20,7 @@
 #include <franka_hw/franka_model_interface.h>
 #include <franka_hw/franka_state_interface.h>
 
-namespace panda_controllers {
+namespace dual_franka_controllers {
 
 class CartesianImpedanceControllerSoftbots : public controller_interface::MultiInterfaceController<
                                                 franka_hw::FrankaModelInterface,

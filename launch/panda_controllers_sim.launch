@@ -6,7 +6,7 @@
 	<arg name="arm_id" default="fr3" doc="Name of the panda robot to spawn" />
 	<arg name="prefix" default="/robot/arm" doc="prefix for arm" />
 	<!-- <arg name="load_gripper" value="false" /> -->
-	<rosparam command="load" file="$(find panda_controllers)/config/panda_controllers_default.yaml" />
+	<rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
 
 	<!-- <node name="controller_load" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="load cartesian_impedance_controller_softbots"/> -->
 	<!-- <node name="controller_spawn" pkg="controller_manager" type="controller_manager" respawn="false" output="screen"  args="spawn computed_torque_controller"/> -->
