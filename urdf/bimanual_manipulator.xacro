@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<robot name="bimanual_manipulator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <arg name="controller" default="computed_torque_controller"/>
+  <arg name="arm_id_left" default="fr3_left" doc="Name of the first franka robot to spawn" />
+  <arg name="arm_id_right" default="fr3_right" doc="Name of the second franka robot to spawn" />
+  <!-- <arg name="prefix" default="/robot/arm" doc="prefix for arm" /> -->
+  <!-- <arg name="load_gripper" value="false" /> -->
+  <rosparam command="load" file="$(find panda_controllers)/config/panda_controllers_default.yaml" />
+
+  <!-- Define parameters -->
+  <xacro:property name="base_height" value="0.5" /> <!-- Height of the base -->
+  <xacro:property name="franka_length" value="0.7" /> <!-- Length to the base of each Franka arm -->
+
+  <!-- Base link -->
+  <link name="base_link">
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="${base_height}" />
+    </geometry>
+    <material name="gray"/>
+  </visual>
+  </link>
+
+  <!-- Base Joint -->
+  <joint name="base_joint" type="revolute">
+  <parent link="world"/>
+  <child link="base_link"/>
+  <origin xyz="0 0 ${base_height / 2}" rpy="0 0 0"/>
+  <axis xyz="0 0 1"/>
+  <limit lower="-3.14" upper="3.14" effort="100" velocity="1"/>
+  </joint>
+
+  <!-- Plate -->
+  <link name="plate_link">
+  <visual>
+    <geometry>
+      <box size="1 1 0.05"/>
+    </geometry>
+    <material name="gray"/>
+  </visual>
+  </link>
+
+  <!-- Plate Joint -->
+  <joint name="plate_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="plate_link"/>
+  <origin xyz="0 0 ${base_height}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Left Franka Arm -->
+  <!-- <xacro:include filename="$(find franka_description)/robots/fr3/fr3.urdf.xacro"/> -->
+  <include file="$(find franka_gazebo)/launch/fr3.launch">
+  <!-- <arg name="rviz" value="true" /> -->
+  <arg name="controller" value="$(arg controller)" />
+  <!-- <arg name="controller" value="cartesian_impedance_controller_softbots" /> -->
+  <arg name="arm_id"      default="$(arg arm_id_left)"   doc="Name of the robot to spawn" />
+  <arg name="use_gripper" default="false"  doc="Should a franka hand be mounted on the flange?" />
+  <arg name="controller"  default="$(arg controller)"     doc="Which example controller should be started? (One of {cartesian_impedance,model,force,joint_position,joint_velocity}_example_controller)" />
+  <arg name="x"           default="0"     doc="How far forward to place the base of the robot in [m]?" />
+  <arg name="y"           default="0.1"     doc="How far leftwards to place the base of the robot in [m]?" />
+  <arg name="z"           default="0.1"     doc="How far upwards to place the base of the robot in [m]?" />
+  <arg name="roll"        default="-0.75"     doc="How much to rotate the base of the robot around its X-axis in [rad]?" />
+  <arg name="pitch"       default="0"     doc="How much to rotate the base of the robot around its Y-axis in [rad]?" />
+  <arg name="yaw"         default="0"     doc="How much to rotate the base of the robot around its Z-axis in [rad]?" />
+  <arg name="xacro_args"  default=""      doc="Additional arguments to pass to panda.urdf.xacro" />
+  <arg name="initial_joint_positions"
+      doc="Initial joint configuration of the panda. Specify as a list of name/value pairs in form of '-J [name-of-joint] [value-in-rad]'. Default is a 90 degree bend in the elbow"
+      default="-J $(arg arm_id)_joint1 0
+                -J $(arg arm_id)_joint2 -0.785398163
+                -J $(arg arm_id)_joint3 0
+                -J $(arg arm_id)_joint4 -2.35619449
+                -J $(arg arm_id)_joint5 0
+                -J $(arg arm_id)_joint6 1.57079632679
+                -J $(arg arm_id)_joint7 0.785398163397"
+      />
+  </include>
+
+  <link name="left_franka_base">
+  <visual>
+    <geometry>
+      <cylinder radius="0.05" length="${franka_length}"/>
+    </geometry>
+    <material name="blue"/>
+  </visual>
+  </link>
+
+  <joint name="left_franka_joint" type="revolute">
+  <parent link="plate_link"/>
+  <child link="left_franka_base"/>
+  <origin xyz="0 ${franka_length} 0" rpy="0 0 0.785"/>
+  <axis xyz="0 0 1"/>
+  <limit lower="-3.14" upper="3.14" effort="100" velocity="1"/>
+  </joint>
+
+  <!-- Right Franka Arm -->
+  <link name="right_franka_base">
+  <visual>
+    <geometry>
+      <cylinder radius="0.05" length="${franka_length}"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+  </link>
+
+  <joint name="right_franka_joint" type="revolute">
+  <parent link="plate_link"/>
+  <child link="right_franka_base"/>
+  <origin xyz="0 -${franka_length} 0" rpy="0 0 -0.785"/>
+  <axis xyz="0 0 1"/>
+  <limit lower="-3.14" upper="3.14" effort="100" velocity="1"/>
+  </joint>
+
+  <!-- Include the Franka Arm URDF files -->
+  <!-- <xacro:include filename="$(find franka_description)/robots/fr3/fr3.urdf.xacro"/> -->
+  <include file="$(find franka_gazebo)/launch/fr3.launch">
+  <!-- <arg name="rviz" value="true" /> -->
+  <arg name="controller" value="$(arg controller)" />
+  <!-- <arg name="controller" value="cartesian_impedance_controller_softbots" /> -->
+  <arg name="arm_id"      default="$(arg arm_id_right)"   doc="Name of the robot to spawn" />
+  <arg name="use_gripper" default="false"  doc="Should a franka hand be mounted on the flange?" />
+  <arg name="controller"  default="$(arg controller)"     doc="Which example controller should be started? (One of {cartesian_impedance,model,force,joint_position,joint_velocity}_example_controller)" />
+  <arg name="x"           default="0"     doc="How far forward to place the base of the robot in [m]?" />
+  <arg name="y"           default="-0.1"     doc="How far leftwards to place the base of the robot in [m]?" />
+  <arg name="z"           default="0.1"     doc="How far upwards to place the base of the robot in [m]?" />
+  <arg name="roll"        default="0.75"     doc="How much to rotate the base of the robot around its X-axis in [rad]?" />
+  <arg name="pitch"       default="0"     doc="How much to rotate the base of the robot around its Y-axis in [rad]?" />
+  <arg name="yaw"         default="0"     doc="How much to rotate the base of the robot around its Z-axis in [rad]?" />
+  <arg name="xacro_args"  default=""      doc="Additional arguments to pass to panda.urdf.xacro" />
+  <arg name="initial_joint_positions"
+      doc="Initial joint configuration of the panda. Specify as a list of name/value pairs in form of '-J [name-of-joint] [value-in-rad]'. Default is a 90 degree bend in the elbow"
+      default="-J $(arg arm_id)_joint1 0
+                -J $(arg arm_id)_joint2 -0.785398163
+                -J $(arg arm_id)_joint3 0
+                -J $(arg arm_id)_joint4 -2.35619449
+                -J $(arg arm_id)_joint5 0
+                -J $(arg arm_id)_joint6 1.57079632679
+                -J $(arg arm_id)_joint7 0.785398163397"
+      />
+  </include>
+  
+</robot>
