@@ -1,14 +1,14 @@
 computed_torque_controller:
     type: dual_franka_controllers/ComputedTorque
-    arm_id: $(arg prefix)arm
+    arm_id: $(arg arm_id)
     joint_names:
-         - $(arg prefix)arm_joint1
-         - $(arg prefix)arm_joint2
-         - $(arg prefix)arm_joint3
-         - $(arg prefix)arm_joint4
-         - $(arg prefix)arm_joint5
-         - $(arg prefix)arm_joint6
-         - $(arg prefix)arm_joint7
+         - $(arg arm_id)_joint1
+         - $(arg arm_id)_joint2
+         - $(arg arm_id)_joint3
+         - $(arg arm_id)_joint4
+         - $(arg arm_id)_joint5
+         - $(arg arm_id)_joint6
+         - $(arg arm_id)_joint7
     # --- Controller parameters --- #
     kp1: 300.0   #default: 120.0
     kp2: 150.0   #default: 70.0
@@ -20,15 +20,15 @@ computed_torque_controller:
 
 cartesian_impedance_controller_softbots:
     type: dual_franka_controllers/CartesianImpedanceControllerSoftbots
-    arm_id: $(arg prefix)arm
+    arm_id: $(arg arm_id)
     joint_names:
-        - $(arg prefix)arm_joint1
-        - $(arg prefix)arm_joint2
-        - $(arg prefix)arm_joint3
-        - $(arg prefix)arm_joint4
-        - $(arg prefix)arm_joint5
-        - $(arg prefix)arm_joint6
-        - $(arg prefix)arm_joint7
+        - $(arg arm_id)_joint1
+        - $(arg arm_id)_joint2
+        - $(arg arm_id)_joint3
+        - $(arg arm_id)_joint4
+        - $(arg arm_id)_joint5
+        - $(arg arm_id)_joint6
+        - $(arg arm_id)_joint7
 
 
 
