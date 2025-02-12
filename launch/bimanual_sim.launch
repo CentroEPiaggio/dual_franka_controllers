@@ -5,13 +5,13 @@
   <arg name="arm_id_left" default="fr3_left" doc="Name of the first franka robot to spawn" />
   <arg name="arm_id_right" default="fr3_right" doc="Name of the second franka robot to spawn" />
   <!-- <arg name="prefix" default="/robot/arm" doc="prefix for arm" /> -->
-  <arg name="load_gripper" value="false" />
-  <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
+  <arg name="load_gripper" default="false" />
+  <!-- <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" /> -->
 
   <!-- Set parameters for the manipulator -->
-  <param name="base_height" default="0.2" />
-  <param name="base_distance" default="0.1" />
-  <param name="base_roll" default="0.75" />
+  <arg name="base_height" default="0.2" />
+  <arg name="base_distance" default="0.1" />
+  <arg name="base_roll" default="0.75" />
 
   <!-- Load the robot description URDF/XACRO -->
   <!-- <param name="robot_description" command="xacro $(find dual_franka_controllers)/urdf/bimanual_manipulator.xacro" /> -->
@@ -22,51 +22,59 @@
   </include>
 
   <!-- Spawn the left manipulator -->
-  <include file="$(find franka_gazebo)/launch/fr3.launch">
-    <arg name="controller" value="$(arg controller)" />
-    <arg name="arm_id"      value="$(arg arm_id_right)" />
-    <arg name="use_gripper" value="$(arg load_gripper)" />
-    <arg name="controller"  value="$(arg controller)" />
-    <arg name="x"           value="0" />
-    <arg name="y"           value="$(arg base_distance)" />
-    <arg name="z"           value="$(arg base_height)" />
-    <arg name="roll"        value="-$(arg base_roll)" />
-    <arg name="pitch"       value="0" />
-    <arg name="yaw"         value="0" />
-    <arg name="initial_joint_positions"
-        doc="Initial joint configuration of the panda. Specify as a list of name/value pairs in form of '-J [name-of-joint] [value-in-rad]'. default is a 90 degree bend in the elbow"
-        value="-J $(arg arm_id_left)_joint1 0
-                  -J $(arg arm_id_left)_joint2 -0.785398163
-                  -J $(arg arm_id_left)_joint3 0
-                  -J $(arg arm_id_left)_joint4 -2.35619449
-                  -J $(arg arm_id_left)_joint5 0
-                  -J $(arg arm_id_left)_joint6 1.57079632679
-                  -J $(arg arm_id_left)_joint7 0.785398163397"
-        />
-  </include>
+  <group ns="left_arm">
+    <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
+    <include file="$(find franka_gazebo)/launch/fr3.launch">
+      <arg name="rviz"       value="false" />
+      <arg name="gazebo"     value="false" />
+      <arg name="paused"     value="false" />
+      <arg name="controller" value="$(arg controller)" />
+      <arg name="arm_id"      value="$(arg arm_id_left)" />
+      <arg name="use_gripper" value="$(arg load_gripper)" />
+      <arg name="x"           value="0" />
+      <arg name="y"           value="$(arg base_distance)" />
+      <arg name="z"           value="$(arg base_height)" />
+      <arg name="roll"        value="-$(arg base_roll)" />
+      <arg name="pitch"       value="0" />
+      <arg name="yaw"         value="0" />
+      <arg name="initial_joint_positions"
+          value="-J $(arg arm_id_left)_joint1 0
+                    -J $(arg arm_id_left)_joint2 -0.785398163
+                    -J $(arg arm_id_left)_joint3 0
+                    -J $(arg arm_id_left)_joint4 -2.35619449
+                    -J $(arg arm_id_left)_joint5 0
+                    -J $(arg arm_id_left)_joint6 1.57079632679
+                    -J $(arg arm_id_left)_joint7 0.785398163397"
+          />
+    </include>
+  </group>
 
   <!-- Spawn the right manipulator -->
-  <include file="$(find franka_gazebo)/launch/fr3.launch">
-    <arg name="controller" value="$(arg controller)" />
-    <arg name="arm_id"      value="$(arg arm_id_right)" />
-    <arg name="use_gripper" value="$(arg load_gripper)" />
-    <arg name="controller"  value="$(arg controller)" />
-    <arg name="x"           value="0" />
-    <arg name="y"           value="-$(arg base_distance)" />
-    <arg name="z"           value="$(arg base_height)" />
-    <arg name="roll"        value="$(arg base_roll)" />
-    <arg name="pitch"       value="0" />
-    <arg name="yaw"         value="0" />
-    <arg name="initial_joint_positions"
-        doc="Initial joint configuration of the panda. Specify as a list of name/value pairs in form of '-J [name-of-joint] [value-in-rad]'. default is a 90 degree bend in the elbow"
-        value="-J $(arg arm_id_right)_joint1 0
-                  -J $(arg arm_id_right)_joint2 -0.785398163
-                  -J $(arg arm_id_right)_joint3 0
-                  -J $(arg arm_id_right)_joint4 -2.35619449
-                  -J $(arg arm_id_right)_joint5 0
-                  -J $(arg arm_id_right)_joint6 1.57079632679
-                  -J $(arg arm_id_right)_joint7 0.785398163397"
-        />
-  </include>
+  <group ns="right_arm">
+    <rosparam command="load" file="$(find dual_franka_controllers)/config/dual_franka_controllers_default.yaml" />
+    <include file="$(find franka_gazebo)/launch/fr3.launch">
+      <arg name="rviz"       value="false" />
+      <arg name="gazebo"     value="false" />
+      <arg name="paused"     value="false" />
+      <arg name="controller" value="$(arg controller)" />
+      <arg name="arm_id"      value="$(arg arm_id_right)" />
+      <arg name="use_gripper" value="$(arg load_gripper)" />
+      <arg name="x"           value="0" />
+      <arg name="y"           value="-$(arg base_distance)" />
+      <arg name="z"           value="$(arg base_height)" />
+      <arg name="roll"        value="$(arg base_roll)" />
+      <arg name="pitch"       value="0" />
+      <arg name="yaw"         value="0" />
+      <arg name="initial_joint_positions"
+          value="-J $(arg arm_id_right)_joint1 0
+                    -J $(arg arm_id_right)_joint2 -0.785398163
+                    -J $(arg arm_id_right)_joint3 0
+                    -J $(arg arm_id_right)_joint4 -2.35619449
+                    -J $(arg arm_id_right)_joint5 0
+                    -J $(arg arm_id_right)_joint6 1.57079632679
+                    -J $(arg arm_id_right)_joint7 0.785398163397"
+          />
+    </include>
+  </group>
 
 </launch>
